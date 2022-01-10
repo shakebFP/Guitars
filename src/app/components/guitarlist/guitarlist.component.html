@@ -1,0 +1,24 @@
+<html>
+<h2>Shakeb's Guitar Store</h2>
+<hr> Search a Guitar: <input type="text"> &nbsp; sort by:
+<br>
+<form action="submit">
+    <input type="radio" name="Ascending" id="asc" value="ascending">Ascending
+    <input type="radio" name="Descending" id="desc" value="descending">Descending
+</form>
+<br><br>
+<div *ngFor="let item of guitars">
+    <div class="cards">
+        Guitar={{item.name}}
+        <img id='images' src="../../assets/img/{{item.image}}.jpg">
+        <br>
+        <nav>
+            <app-button color="green" text="{{item.name}}" routerLink="/{{item.name}}" routerLinkActive="active"></app-button>
+        </nav>
+
+        <br>Description: {{item.description}}
+        <br>Price: {{item.price}}
+    </div>
+</div>
+
+</html>
