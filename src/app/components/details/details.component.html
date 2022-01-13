@@ -1,0 +1,57 @@
+<img src="../../../assets/img/{{image}}.jpg" alt="{{image}}">
+
+<p>{{selectedGuitarData.name}}</p>
+<br>
+<p>{{selectedGuitarData.description}}</p>
+<br>
+<p>{{selectedGuitarData.price}}</p>
+<div *ngIf="hide">
+    <button (click)="view = 'description'">description</button>
+    <button (click)="view = 'specifications' ">specs</button>
+    <button (click)="view = 'reviews' ">revv</button>
+    <div [ngSwitch]="view">
+        <div *ngSwitchCase="'description'">
+            <p>{{selectedGuitarData.longDescription}}</p>
+
+        </div>
+        <br>
+        <div *ngSwitchCase="'specifications'">
+            <p>{{selectedGuitarData.specifications}}</p>
+        </div>
+
+        <div *ngSwitchCase="'reviews'">
+
+            <div *ngFor="let rev of selectedGuitarData.reviews">
+                <p>{{rev.star}}</p>
+                <p>{{rev.name}}</p>
+                <p>{{rev.body}}</p>
+            </div>
+            <button (click)="addReview = 'addReview';addrev=true">Add reviews</button>
+
+        </div>
+        <div *ngIf="addrev">
+            <div [ngSwitch]="addReview">
+                <div *ngSwitchCase="'addReview'">
+                    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                        <label for="reviewStars">Review Stars:</label>
+                        <input type="number" name="reviewStars" id="reviewStars" ngModel>
+                        <br>
+                        <label for="reviewerName">Name:</label>
+                        <input type="text" id="reviewerName" name="reviewerName" ngModel>
+                        <br>
+                        <label for="reviewBody">Review:</label>
+                        <textarea id="reviewBody" placeholder="Enter Review" name="reviewBody" cols="30" rows="10" ngModel></textarea>
+                        <button type="submit">submit</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button (click)="viewPrevious()">prev</button>
+    <button (click)="viewNext()">next</button>
+</div>
+<div *ngIf="hidden">Thanks for shopping with us. you have just ordered a {{selectedGuitarData.image}} guitar</div>
+<br>
+<a routerLink="">&lt;&lt; Go back to Guitar List</a>
+<button type="button" (click)="checkout()" *ngIf="show">Checkout&gt;&gt;</button>
